@@ -17,6 +17,7 @@ class PublicClient(metaclass=Cached):
             self.public_base_url = 'https://api.sandbox.gemini.com/v1'
         else:
             self.public_base_url = 'https://api.gemini.com/v1'
+            self.public_base_url_v2 = 'https://api.gemini.com/v2'
 
     def symbols(self):
         """
@@ -103,7 +104,7 @@ class PublicClient(metaclass=Cached):
                 ...
             ]
         """
-        r = requests.get(self.public_base_url + '/candles/{}/{}'.format(product_id, interval))
+        r = requests.get(self.public_base_url_v2 + '/candles/{}/{}'.format(product_id, interval))
         return r.json()
 
     @typeassert(product_id=str, since=str)
