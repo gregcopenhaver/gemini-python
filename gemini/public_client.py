@@ -80,6 +80,32 @@ class PublicClient(metaclass=Cached):
         r = requests.get(self.public_base_url + '/book/' + product_id)
         return r.json()
 
+    @typeassert(product_id=str, interval=str)
+    def get_candles(self, product_id, interval='1m'):
+        """
+        This endpoint retrieves time-intervaled data for the provided symbol.
+
+        Args:
+            product_id(str): Can be any value in self.symbols()
+            interval(str): Must be one of 1m, 5m, 15m, 30m, 1hr, 6hr, 1day
+
+        Returns:
+            list: This will return a list of lists, in descending order by time,
+            with each sublist containing details for one candle:
+                time(int): Time in milliseconds
+                open(float): Open price
+                high(float): High price
+                low(float): Low price
+                close(float): Close price
+                volume(float): Volume
+            example: [
+                [1612830600000, 1738.66, 1741.75, 1738.66, 1741.75, 0.112616],
+                ...
+            ]
+        """
+        r = requests.get(self.public_base_url + '/candles/{}/{}'.format(product_id, interval))
+        return r.json()
+
     @typeassert(product_id=str, since=str)
     def get_trade_history(self, product_id, since=None):
         """
