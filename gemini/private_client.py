@@ -58,7 +58,7 @@ class PrivateClient(PublicClient):
         So far Gemini only supports "type" as "exchange limit".
 
         Args:
-            product_id(str): Can be any value in self.symbols()
+            symbol(str): Can be any value in self.symbols()
             amount(str): The amount of currency you want to buy.
             price(str): The price at which you want to buy the currency/
             side(str): Either "buy" or "ask"
