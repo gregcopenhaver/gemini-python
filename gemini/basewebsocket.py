@@ -36,6 +36,9 @@ class BaseWebSocket(metaclass=Cached):
                 data = self.ws.recv()
             except ValueError as e:
                 self.on_error(e)
+            except WebSocketConnectionClosedException as e:
+                self.on_error(e)
+                self.stop = True
             except Exception as e:
                 self.on_error(e)
             else:
